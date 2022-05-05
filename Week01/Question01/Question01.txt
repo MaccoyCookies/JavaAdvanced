@@ -1,0 +1,130 @@
+Classfile /Users/maccoy/Desktop/IdeaProjects/maven-project/src/main/java/com/maccoy/advanced/jvm/homework/Hello.class
+  Last modified May 5, 2022; size 572 bytes
+  MD5 checksum dee707c2c2f78346ed576de42afa7d8b
+  Compiled from "Hello.java"
+public class com.maccoy.advanced.jvm.homework.Hello
+----------------------------------------------------
+--> 批注: 次版本号、主版本号, 标识(public的类, 有父类)
+----------------------------------------------------
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+----------------------------------------------------  
+--> 批注: 常量池
+----------------------------------------------------
+Constant pool:
+   #1 = Methodref          #3.#22         // java/lang/Object."<init>":()V
+   #2 = Class              #23            // com/maccoy/advanced/jvm/homework/Hello
+   #3 = Class              #24            // java/lang/Object
+   #4 = Utf8               <init>
+   #5 = Utf8               ()V
+   #6 = Utf8               Code
+   #7 = Utf8               LineNumberTable
+   #8 = Utf8               LocalVariableTable
+   #9 = Utf8               this
+  #10 = Utf8               Lcom/maccoy/advanced/jvm/homework/Hello;
+  #11 = Utf8               main
+  #12 = Utf8               ([Ljava/lang/String;)V
+  #13 = Utf8               args
+  #14 = Utf8               [Ljava/lang/String;
+  #15 = Utf8               a
+  #16 = Utf8               I
+  #17 = Utf8               b
+  #18 = Utf8               c
+  #19 = Utf8               StackMapTable
+  #20 = Utf8               SourceFile
+  #21 = Utf8               Hello.java
+  #22 = NameAndType        #4:#5          // "<init>":()V
+  #23 = Utf8               com/maccoy/advanced/jvm/homework/Hello
+  #24 = Utf8               java/lang/Object
+----------------------------------------------------
+--> 批注: 类的方法
+----------------------------------------------------
+{
+----------------------------------------------------
+--> 批注: 默认无参构造方法
+返回值: void
+权限标识: pulibc
+栈的深度: 1
+局部变量表的大小: 1
+参数大小: 1
+lineNumberTable: Java源码行号 对应 字节码行号 关系
+LocalVariableTable: 局部变量表信息
+----------------------------------------------------
+  public com.maccoy.advanced.jvm.homework.Hello();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 3: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/maccoy/advanced/jvm/homework/Hello;
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=4, args_size=1
+----------------------------------------------------
+--> 批注: 字节码
+iconst: 推送int常量数值至栈顶
+istore: 将栈顶int数值存入局部变量表对应位置 
+iload: 将局部变量表对应数值推送至栈顶
+iadd: 将栈顶的两个int数值进行相加, 并将结果压至栈顶
+if_icmple: 比较栈顶两int型数值大小，当结果小于等于0时跳转
+goto: 跳转
+iinc: 指定局部变量表位置的数值增加指定值
+----------------------------------------------------
+         0: iconst_0
+         1: istore_1
+         2: iconst_2
+         3: istore_2
+         4: iload_1
+         5: iload_2
+         6: iadd
+         7: istore_3
+         8: iload_3
+         9: iconst_3
+        10: if_icmple     18
+        13: iconst_0
+        14: istore_3
+        15: goto          20
+        18: iconst_5
+        19: istore_3
+        20: iload_3
+        21: iconst_1
+        22: if_icmple     34
+        25: iinc          1, 1
+        28: iinc          3, -1
+        31: goto          20
+        34: return
+      LineNumberTable:
+        line 6: 0
+        line 7: 2
+        line 8: 4
+        line 9: 8
+        line 10: 13
+        line 12: 18
+        line 14: 20
+        line 15: 25
+        line 16: 28
+        line 18: 34
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      35     0  args   [Ljava/lang/String;
+            2      33     1     a   I
+            4      31     2     b   I
+            8      27     3     c   I
+      StackMapTable: number_of_entries = 3
+        frame_type = 254 /* append */
+          offset_delta = 18
+          locals = [ int, int, int ]
+        frame_type = 1 /* same */
+        frame_type = 13 /* same */
+}
+SourceFile: "Hello.java"
