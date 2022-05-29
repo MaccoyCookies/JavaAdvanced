@@ -2,13 +2,18 @@ package com.maccoy.advanced.concurrent;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class NewThreadReturn {
 
@@ -88,12 +93,31 @@ public class NewThreadReturn {
         System.out.println("method09 = " + futures.get(0).get());
 
         // 10
-        Method10Runnable method10Runnable = new Method10Runnable();
-        Thread method10Thread = new Thread(method10Runnable);
-        synchronized (method10Thread) {
-            method10Thread.wait();
-        }
+        Semaphore semaphore = new Semaphore(1);
+        Method10Runnable method10Runnable = new Method10Runnable(semaphore);
+        new Thread(method10Runnable).start();
+        Thread.sleep(200);
+        semaphore.acquire();
         System.out.println("method10 = " + method10Runnable.getResult());
+        semaphore.release();
+
+        // 11
+        Lock lock = new ReentrantLock();
+        Method11Runnable method11Runnable = new Method11Runnable(lock);
+        new Thread(method11Runnable).start();
+        Thread.sleep(200);
+        lock.lock();
+        System.out.println("method11 = " + method11Runnable.getResult());
+        lock.unlock();
+
+        // 12
+        Method12Runnable method12Runnable = new Method12Runnable();
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(1, () -> {
+            System.out.println("method12 = " + method12Runnable.getResult());
+        });
+        method12Runnable.setCyclicBarrier(cyclicBarrier);
+        new Thread(method12Runnable).start();
+
     }
 
     static class Method05Runnable implements Runnable {
@@ -140,21 +164,71 @@ public class NewThreadReturn {
 
     static class Method10Runnable implements Runnable {
         private int result = 0;
+
+        private final Semaphore semaphore;
+
+        public Method10Runnable(Semaphore semaphore) {
+            this.semaphore = semaphore;
+        }
+
         @Override
         public void run() {
             try {
-                Thread.sleep(1000);
+                semaphore.acquire();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            synchronized (this) {
-                result = sum();
+            result = sum();
+            semaphore.release();
+        }
+        public int getResult() {
+            return result;
+        }
+    }
+
+    static class Method11Runnable implements Runnable {
+        private int result = 0;
+
+        private final Lock lock;
+
+        public Method11Runnable(Lock lock) {
+            this.lock = lock;
+        }
+
+        @Override
+        public void run() {
+            lock.lock();
+            result = sum();
+            lock.unlock();
+        }
+        public int getResult() {
+            return result;
+        }
+    }
+
+    static class Method12Runnable implements Runnable {
+        private int result = 0;
+
+        private CyclicBarrier cyclicBarrier;
+
+        public void setCyclicBarrier(CyclicBarrier cyclicBarrier) {
+            this.cyclicBarrier = cyclicBarrier;
+        }
+
+        @Override
+        public void run() {
+            result = sum();
+            try {
+                cyclicBarrier.await();
+            } catch (InterruptedException | BrokenBarrierException e) {
+                e.printStackTrace();
             }
         }
         public int getResult() {
             return result;
         }
     }
+
 }
 
 
