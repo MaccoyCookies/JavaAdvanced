@@ -1,0 +1,1 @@
+http\://www.springframework.org/schema/custom=com.maccoy.advanced.spring.custom.xml.CustomNamespaceHandler
