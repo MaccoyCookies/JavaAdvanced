@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.maccoy.rpc.api.service.DepartFallBack,\
+  com.maccoy.rpc.api.service.UserFallBack

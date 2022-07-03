@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maccoy.dubbo.server02.mapper.AccountMapper">
+  <resultMap id="BaseResultMap" type="com.maccoy.dubbo.server02.domain.Account">
+    <!--@mbg.generated-->
+    <!--@Table account-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="account_type" jdbcType="TINYINT" property="accountType" />
+    <result column="balance" jdbcType="BIGINT" property="balance" />
+    <result column="create_tm" jdbcType="TIMESTAMP" property="createTm" />
+    <result column="update_tm" jdbcType="TIMESTAMP" property="updateTm" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, user_id, account_type, balance, create_tm, update_tm
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from account
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from account
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.maccoy.dubbo.server02.domain.Account" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into account (user_id, account_type, balance, 
+      create_tm, update_tm)
+    values (#{userId,jdbcType=BIGINT}, #{accountType,jdbcType=TINYINT}, #{balance,jdbcType=BIGINT}, 
+      #{createTm,jdbcType=TIMESTAMP}, #{updateTm,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.maccoy.dubbo.server02.domain.Account" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="accountType != null">
+        account_type,
+      </if>
+      <if test="balance != null">
+        balance,
+      </if>
+      <if test="createTm != null">
+        create_tm,
+      </if>
+      <if test="updateTm != null">
+        update_tm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="accountType != null">
+        #{accountType,jdbcType=TINYINT},
+      </if>
+      <if test="balance != null">
+        #{balance,jdbcType=BIGINT},
+      </if>
+      <if test="createTm != null">
+        #{createTm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTm != null">
+        #{updateTm,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.maccoy.dubbo.server02.domain.Account">
+    <!--@mbg.generated-->
+    update account
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="accountType != null">
+        account_type = #{accountType,jdbcType=TINYINT},
+      </if>
+      <if test="balance != null">
+        balance = #{balance,jdbcType=BIGINT},
+      </if>
+      <if test="createTm != null">
+        create_tm = #{createTm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTm != null">
+        update_tm = #{updateTm,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.maccoy.dubbo.server02.domain.Account">
+    <!--@mbg.generated-->
+    update account
+    set user_id = #{userId,jdbcType=BIGINT},
+      account_type = #{accountType,jdbcType=TINYINT},
+      balance = #{balance,jdbcType=BIGINT},
+      create_tm = #{createTm,jdbcType=TIMESTAMP},
+      update_tm = #{updateTm,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="handleAccountBalance">
+        update account
+        set balance = balance + #{amount},
+        update_tm = now()
+        where user_id = #{userId}
+        and account_type = #{accountType}
+    </update>
+</mapper>
