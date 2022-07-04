@@ -1,4 +1,4 @@
-package com.maccoy.dubbo.api.service;
+package com.maccoy.dubbo.service;
 
 import org.dromara.hmily.annotation.Hmily;
 

@@ -1,7 +1,7 @@
 package com.maccoy.dubbo.server02.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.maccoy.dubbo.api.service.IAccountServer02Service;
+import com.maccoy.dubbo.service.IAccountServer02Service;
 import com.maccoy.dubbo.server02.service.IAccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -21,7 +21,6 @@ public class AccountServiceImpl implements IAccountService {
     private IFreezeDetailService freezeDetailService;
 
     @Override
-    @Transactional
     @HmilyTCC(confirmMethod = "confirm", cancelMethod = "cancel")
     public void transfer(String tid, Long userId, Long amount, Integer accountType, Long targetAmount, Integer targetAccountType) {
 

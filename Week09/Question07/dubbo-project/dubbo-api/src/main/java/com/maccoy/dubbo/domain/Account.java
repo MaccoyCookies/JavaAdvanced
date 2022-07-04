@@ -1,4 +1,4 @@
-package com.maccoy.dubbo.api.domain;
+package com.maccoy.dubbo.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
